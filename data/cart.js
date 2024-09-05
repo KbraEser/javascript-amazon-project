@@ -20,21 +20,36 @@ function saveToStorage() {
 export function addToCart(productId) {
   let matchingItem;
 
+  const quantitySelector = document.querySelector(
+    `.js-quantity-selector-${productId}`
+  );
+  const quantity = Number(quantitySelector.value);
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
-
   if (matchingItem) {
-    matchingItem.quantity += 1;
+    matchingItem.quantity += quantity;
   } else {
     cart.push({
       productId: productId,
-      quantity: 1,
+      quantity: quantity,
     });
   }
+
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+  addedMessage.classList.add("added-to-cart-visible");
+
+  setTimeout(() => {
+    addedMessage.classList.remove("added-to-cart-visible");
+  }, 2000);
+
   saveToStorage();
+
+  console.log(quantitySelector);
+  console.log(addedMessage);
 }
 
 export function removeFromCart(productId) {
