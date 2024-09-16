@@ -7,6 +7,7 @@ import {
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 hello();
 
@@ -137,6 +138,7 @@ export function renderOrderSummary() {
       container.remove();
       updateCartQuantity();
       container.classList.add("is-editing-quantity");
+      renderPaymentSummary();
     });
   });
 
@@ -187,6 +189,14 @@ export function renderOrderSummary() {
         `.js-quantity-label-${productId}`
       );
       quantityLabel.innerHTML = newQuantity;
+
+      const cartItem = cart.find((item) => item.productId === productId);
+      if (cartItem) {
+        cartItem.quantity = newQuantity;
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderPaymentSummary();
     });
   });
 
@@ -196,6 +206,7 @@ export function renderOrderSummary() {
       const deliveryOptionId = element.dataset.deliveryOptionId;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }
