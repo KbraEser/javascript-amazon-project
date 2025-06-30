@@ -24,7 +24,7 @@ export function renderOrderSummary() {
 
     const dateString = calculateDeliveryDate(deliveryOption);
 
-    //   Bu kod, cart dizisindeki her bir öğeyi alır, ardından products dizisini tarayarak bu öğeye karşılık gelen ürünü bulur. Eşleşen ürün bulunursa, bu ürün matchingProduct değişkenine atanır.
+  
 
     cartSummaryHTML += `
   <div class="cart-item-container
